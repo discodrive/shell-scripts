@@ -10,7 +10,7 @@ EMAIL="test@substrakt.com"
 USER="$(./wp-cli.phar user list --fields=ID,user_email | grep @substrakt | sed -n 1p)"
 USER_ID=$(echo $USER | awk '{print $1}')
 USER_EMAIL=$(echo $USER | awk '{print $2}')
-]
+
 # if the email input matches the queried user, reassign the USER variable to the next valid user
 # Quiet the output and suppress errors - this is just acting as a conditional check
 if printf $EMAIL | grep -qs $USER_EMAIL; then

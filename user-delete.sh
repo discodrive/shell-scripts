@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Email address of the user to delete. Save it to a variable for checks.
-# read -p "Email address of user to delete: " EMAIL
-EMAIL="test@substrakt.com"
+read -p "Email address of user to delete: " EMAIL
+# EMAIL="test@substrakt.com"
 printf $EMAIL
 
 # Find the first substrakt user, get the second line (to exclude table headers) and first word (user ID)

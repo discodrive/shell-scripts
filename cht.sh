@@ -1,8 +1,8 @@
 #! /bin/bash
 
 # List languages and replace spaces with new lines
-languages=`printf "python php bash terraform aws vault ansible" | tr ' ' '\n'`
-core_utils=`printf "xargs sed mv awk find" | tr ' ' '\n'`
+languages=`printf "python php bash terraform aws vault ansible golang" | tr ' ' '\n'`
+core_utils=`printf "xargs sed mv awk find tmux" | tr ' ' '\n'`
 
 selected=`printf "${languages}\n${core_utils}" | fzf`
 read -p "query: " query
@@ -13,8 +13,8 @@ read -p "query: " query
 # -s Suppress error messages 
 if printf "$languages" | grep -qs $selected; then
     # curl the cheat sheet for the selected language plus args
-    curl cht.sh/$selected/`echo $query | tr ' ' '+'`
+    tmux neww bash -c "curl cht.sh/$selected/`echo $query | tr ' ' '+'` & while [ : ]; do sleep 1; done"
 else
     # curl the cheat sheet for the selected coreutil plus args
-    curl cht.sh/$selected~$query
+    tmux neww bash -c "curl cht.sh/$selected~$query & while [ : ]; do sleep 1; done"
 fi

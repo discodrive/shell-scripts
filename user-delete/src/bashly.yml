@@ -8,16 +8,16 @@ commands:
   help: Delete a user from WordPress sites
 
   args:
-  - name: all-sites
+  - name: email
     required: true
-    help: Should this user be deleted from all sites
+    help: The email address of the user to be removed
 
   flags:
-  - long: --force
-    short: -f
-    help: Overwrite existing files
+  - long: --reassign
+    short: -r
+    help: Specify the ID of a user to reassign content to
 
   examples:
-  - cli download example.com
-  - cli download example.com ./output -f
+  - user-delete test@substrakt.com
+  - user-delete test@substrakt.com --reassign 2
 

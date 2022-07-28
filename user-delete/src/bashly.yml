@@ -3,7 +3,7 @@ help: Delete a user from WordPress sites using the Heroku CLI
 version: 0.1.0
 
 commands:
-- name: user-delete
+- name: delete
   alias: ud
   help: Delete a user from WordPress sites
 

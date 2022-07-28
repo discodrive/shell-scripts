@@ -34,7 +34,7 @@ user_delete_usage() {
   echo
   # :command.usage_commands
   printf "Commands:\n"
-  echo "  user-delete   Delete a user from WordPress sites"
+  echo "  delete   Delete a user from WordPress sites"
   echo
 
   if [[ -n $long_usage ]]; then
@@ -51,13 +51,13 @@ user_delete_usage() {
 }
 
 # :command.usage
-user_delete_user_delete_usage() {
+user_delete_delete_usage() {
   if [[ -n $long_usage ]]; then
-    printf "user-delete user-delete - Delete a user from WordPress sites\n"
+    printf "user-delete delete - Delete a user from WordPress sites\n"
     echo
 
   else
-    printf "user-delete user-delete - Delete a user from WordPress sites\n"
+    printf "user-delete delete - Delete a user from WordPress sites\n"
     echo
 
   fi
@@ -66,8 +66,8 @@ user_delete_user_delete_usage() {
   echo
 
   printf "Usage:\n"
-  printf "  user-delete user-delete EMAIL [options]\n"
-  printf "  user-delete user-delete --help | -h\n"
+  printf "  user-delete delete EMAIL [options]\n"
+  printf "  user-delete delete --help | -h\n"
   echo
 
   if [[ -n $long_usage ]]; then
@@ -145,12 +145,26 @@ inspect_args() {
 
 # :command.command_functions
 # :command.function
-user_delete_user_delete_command() {
-  # src/user_delete_command.sh
-  echo "# this file is located in 'src/user_delete_command.sh'"
-  echo "# code for 'user-delete user-delete' goes here"
-  echo "# you can edit it freely and regenerate (it will not be overwritten)"
-  inspect_args
+user_delete_delete_command() {
+  # src/delete_command.sh
+  # Email address of the user to delete. Save it to a variable for checks.
+  EMAIL=${args[email]}
+
+  printf $EMAIL
+
+  # # Find the first substrakt user. Set variables for the ID and Email address
+  # USER="$(./wp-cli.phar user list --fields=ID,user_email | grep @substrakt | sed -n 1p)"
+  # USER_ID=$(echo $USER | awk '{print $1}')
+  # USER_EMAIL=$(echo $USER | awk '{print $2}')
+
+  # # If the email input matches the queried user, reassign the USER_ID variable to the next valid user
+  # # Quiet the output and suppress errors - this is just acting as a conditional check so we dont want an output
+  # if printf $EMAIL | grep -qs $USER_EMAIL; then
+  #     USER_ID="$(./wp-cli.phar user list --fields=ID,user_email | grep @substrakt | sed -n 2p | awk '{print $1;}')"
+  # fi
+
+  # # Delete the user and reassign
+  # ./wp-cli.phar user delete ${EMAIL} --reassign=${USER_ID}
 }
 
 # :command.parse_requirements
@@ -178,10 +192,10 @@ parse_requirements() {
   -* )
     ;;
 
-  user-delete | ud )
-    action="user-delete"
+  delete | ud )
+    action="delete"
     shift
-    user_delete_user_delete_parse_requirements "$@"
+    user_delete_delete_parse_requirements "$@"
     shift $#
     ;;
 
@@ -220,12 +234,12 @@ parse_requirements() {
 }
 
 # :command.parse_requirements
-user_delete_user_delete_parse_requirements() {
+user_delete_delete_parse_requirements() {
   # :command.fixed_flags_filter
   case "${1:-}" in
   --help | -h )
     long_usage=yes
-    user_delete_user_delete_usage
+    user_delete_delete_usage
     exit
     ;;
 
@@ -233,7 +247,7 @@ user_delete_user_delete_parse_requirements() {
   # :command.environment_variables_filter
   # :command.dependencies_filter
   # :command.command_filter
-  action="user-delete"
+  action="delete"
   # :command.parse_requirements_while
   while [[ $# -gt 0 ]]; do
     key="$1"
@@ -268,7 +282,7 @@ user_delete_user_delete_parse_requirements() {
   done
   # :command.required_args_filter
   if [[ -z ${args[email]+x} ]]; then
-    printf "missing required argument: EMAIL\nusage: user-delete user-delete EMAIL [options]\n"
+    printf "missing required argument: EMAIL\nusage: user-delete delete EMAIL [options]\n"
     exit 1
   fi
   # :command.required_flags_filter
@@ -295,12 +309,12 @@ run() {
   normalize_input "$@"
   parse_requirements "${input[@]}"
 
-  if [[ $action == "user-delete" ]]; then
+  if [[ $action == "delete" ]]; then
     if [[ ${args[--help]:-} ]]; then
       long_usage=yes
-      user_delete_user_delete_usage
+      user_delete_delete_usage
     else
-      user_delete_user_delete_command
+      user_delete_delete_command
     fi
 
   elif [[ $action == "root" ]]; then

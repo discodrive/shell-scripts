@@ -1,10 +1,6 @@
 name: user-delete
-help: Delete 
+help: Delete a user from WordPress sites using the Heroku CLI
 version: 0.1.0
-
-environment_variables:
-- name: api_key
-  help: Set your API key
 
 commands:
 - name: user-delete
@@ -15,8 +11,6 @@ commands:
   - name: all-sites
     required: true
     help: Should this user be deleted from all sites
-  - name: target
-    help: "Target filename (default: same as source)"
 
   flags:
   - long: --force
@@ -26,8 +20,4 @@ commands:
   examples:
   - cli download example.com
   - cli download example.com ./output -f
-
-  environment_variables:
-  - name: default_target_location
-    help: Set the default location to download to
 

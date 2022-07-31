@@ -5,7 +5,7 @@
 EMAIL=$1
 USERS="$(./wp-cli.phar user list --fields=ID,user_email | grep @substrakt)"
 
-printf $USERS
+echo "$USERS"
 
 # Check if the specified email address is a user on the site
 if printf $EMAIL | grep -qs "$(./wp-cli.phar user list --fields=ID,user_email)"; then

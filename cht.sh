@@ -2,7 +2,7 @@
 
 # List languages and replace spaces with new lines
 languages=`printf "python php bash terraform aws vault ansible golang" | tr ' ' '\n'`
-core_utils=`printf "xargs sed mv awk find tmux" | tr ' ' '\n'`
+core_utils=`printf "xargs sed awk find tmux nvim vim docker fzf" | tr ' ' '\n'`
 
 selected=`printf "${languages}\n${core_utils}" | fzf`
 read -p "query: " query

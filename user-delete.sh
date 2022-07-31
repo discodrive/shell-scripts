@@ -2,7 +2,9 @@
 # Run with heroku apps:table --filter="App Name=app-name-heres" --columns="app name" --no-header | xargs -n 1 heroku run "bash <(curl -s https://raw.githubusercontent.com/discodrive/shell-scripts/main/user-delete.sh)" -a
 
 # Email address of the user to delete. Save it to a variable for checks.
-EMAIL="test@substrakt.com"
+EMAIL=$1
+
+printf $EMAIL
 
 # Find the first substrakt user. Set variables for the ID and Email address
 USER="$(./wp-cli.phar user list --fields=ID,user_email | grep @substrakt | sed -n 1p)"
@@ -17,4 +19,6 @@ fi
 
 # Delete the user and reassign
 ./wp-cli.phar user delete ${EMAIL} --reassign=${USER_ID}
+
+printf "${EMAIL} deleted. Content reassigned to ${USER_EMAIL}"
 

@@ -9,14 +9,13 @@ USERS="$(./wp-cli.phar user list --fields=ID,user_email | grep @substrakt)"
 if grep -qs ${EMAIL} <<< "$USERS"; then
     # Find the first substrakt user. Set variables for the ID and Email address
     USER="$(echo $USERS | sed -n 1p)"
-    echo "$USER"
     USER_ID=$(echo $USER | awk '{print $1}')
     USER_EMAIL=$(echo $USER | awk '{print $2}')
 
     # If the email input matches the queried user, reassign the USER_ID variable to the next valid user
     # Quiet the output and suppress errors - this is just acting as a conditional check so we dont want an output
     if printf $EMAIL | grep -qs $USER_EMAIL; then
-        USER_ID="$(./wp-cli.phar user list --fields=ID,user_email | grep @substrakt | sed -n 2p | awk '{print $1;}')"
+        USER_ID="$(echo $users | sed -n 2p | awk '{print $1;}')"
     fi
 
     # Delete the user and reassign

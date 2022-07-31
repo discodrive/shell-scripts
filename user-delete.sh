@@ -6,7 +6,7 @@ EMAIL=$1
 USERS="$(./wp-cli.phar user list --fields=ID,user_email | grep @substrakt)"
 
 # Check if the specified email address is a user on the site
-if printf $EMAIL | grep -qs "$USERS"; then
+if printf $EMAIL | grep -qs $USERS; then
     # Find the first substrakt user. Set variables for the ID and Email address
     USER="$(echo $USERS | sed -n 1p)"
     echo "$USER"

@@ -3,6 +3,9 @@
 
 # Email address of the user to delete. Save it to a variable for checks.
 EMAIL=$1
+USERS="$(./wp-cli.phar user list --fields=ID,user_email | grep @substrakt)"
+
+printf $USERS
 
 # Check if the specified email address is a user on the site
 if printf $EMAIL | grep -qs "$(./wp-cli.phar user list --fields=ID,user_email)"; then

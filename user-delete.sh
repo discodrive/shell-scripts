@@ -14,7 +14,7 @@ if grep -qs ${EMAIL} <<< "$USERS"; then
 
     # If the email input matches the queried user, reassign the USER_ID variable to the next valid user
     # Quiet the output and suppress errors - this is just acting as a conditional check so we dont want an output
-    if printf $EMAIL | grep -qs $USER_EMAIL; then
+    if grep -qs ${EMAIL} <<<  "$USER_EMAIL"; then
         USER_ID="$(echo $users | sed -n 2p | awk '{print $1;}')"
     fi
 

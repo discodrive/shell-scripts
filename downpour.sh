@@ -11,4 +11,10 @@ path="$(gum input --placeholder 'Enter an invalidation path:')"
 
 # Create the invalidation using the selected ID and the invalidation path
 gum confirm "Invalidate the CloudFront cache for $name distribution on the following path: $path" && \
-gum spin --spinner line --title 'Creating the invalidation...' --  aws cloudfront create-invalidation --distribution-id $id --paths $path --profile $profile
+gum spin --spinner line --title 'Creating the invalidation...' --  aws cloudfront create-invalidation --distribution-id $id --paths $path --profile $profile || \
+gum style \
+	--foreground 212 --border-foreground 212 --border double \
+	--align center --width 50 --margin "1 2" --padding "2 4" \
+	'Invalidation not created.' sleep 2 exit 0
+
+gum spin --spinner line --title 'All done!' sleep 2

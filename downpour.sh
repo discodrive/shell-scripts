@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Select a profile using gum filter
-profile="$(aws configure list-profiles | gum filter)"
+ profile="$(aws configure list-profiles | sort -k 2 | gum filter --placeholder='Select a profile...')"
 
 # Use the selected profile to list distributions and select with gum filter, prompt for an invalidation path
 selected=`printf "$(gum spin --spinner line --title 'Finding distributions' --show-output -- aws cloudfront list-distributions --query 'DistributionList.Items[*].[Origins.Items[0].Id,Id]' --output text --profile $profile | gum filter)"`

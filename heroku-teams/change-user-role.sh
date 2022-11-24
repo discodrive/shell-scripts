@@ -6,7 +6,7 @@ do
     SUBSTRAKT=$(heroku members -t $TEAM | grep @substrakt.co | grep collaborator)
     EMAIL="$(echo $SUBSTRAKT | awk '{print $1}')"
     if [ ! -z "$SUBSTRAKT" ]; then
-        heroku members:set $EMAIL -t $TEAM --role member
+        heroku members:add $EMAIL -t $TEAM --role member
     else
         echo "No collaborators with @substrakt.* email addresses found in ${TEAM} team."
     fi

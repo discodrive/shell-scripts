@@ -5,7 +5,7 @@ function exists_in_list() {
     LIST=$1
     DELIMITER=$2
     VALUE=$3
-    echo $LIST | tr "$DELIMITER" '\n' | grep -F -q -x "$VALUE"
+    echo "$LIST" | tr "$DELIMITER" '\n' | grep -F -q -x "$VALUE"
 }
 
 for TEAM in $TEAMS
@@ -17,12 +17,12 @@ do
     COLLABS=$(echo "$MEMBERS" | grep collaborator | awk '{print $1}')
 
     # Check that the collabs list is not empty
-    if [ ! -z "$COLLABS" ]; then
+    if [ -n "$COLLABS" ]; then
         for MEMBER in $COLLABS
         do
             # If the current member is NOT already pending a role change, invite them to become a member
-            if ! exists_in_list "$PENDING" " " $MEMBER; then
-                heroku members:add $MEMBER -t $TEAM --role member
+            if ! exists_in_list "$PENDING" " " "$MEMBER"; then
+                heroku members:add "$MEMBER" -t "$TEAM" --role member
             else
                 echo "${MEMBER} is already pending a role change in ${TEAM} team."
             fi

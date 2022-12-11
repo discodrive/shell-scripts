@@ -9,7 +9,7 @@ do
 
     if [ -n "$cluster" ];then
         aws rds modify-db-cluster \
-            --db-cluser-identifier "$cluster" \
+            --db-cluster-identifier "$cluster" \
             --engine-version "5.7.mysql_aurora.2.11.0" \
             --preferred-maintenance-window "Wed:03:00-Wed:04:00" \
             --region "$r" \

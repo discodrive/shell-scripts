@@ -20,5 +20,3 @@ do
         done
     fi
 done
-
-

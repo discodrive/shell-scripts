@@ -3,7 +3,7 @@
 # Azure Devops variables
 ORG_NAME=""
 PROJECT_NAME=""
-PERSONAL_ACCESS_TOKEN="aqk37ersqj7pbiwkgluelmu3ogve3vmmiraid4e5n6wqzyon5m6q"
+PERSONAL_ACCESS_TOKEN=""
 
 # Pipeline variables
 PIPELINE_NAME=""

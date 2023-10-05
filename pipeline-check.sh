@@ -1,12 +1,12 @@
-#! bin/bash
+#!/bin/bash
 
 # Azure Devops variables
-ORG_NAME=""
-PROJECT_NAME=""
-PERSONAL_ACCESS_TOKEN=""
+ORG_NAME="leeaplin"
+PROJECT_NAME="Kickstart pipeline"
+PERSONAL_ACCESS_TOKEN=$1
 
 # Pipeline variables
-PIPELINE_NAME=""
+PIPELINE_NAME="build-and-plan"
 
 # Azure Devops REST API url
 API_URL="https://dev.azure.com/${ORG_NAME}/${PROJECT_NAME}/_apis/pipelines?api-version=6.0"

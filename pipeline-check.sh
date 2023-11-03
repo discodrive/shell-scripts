@@ -1,20 +1,31 @@
 #!/bin/bash
 
-# Azure Devops variables
-ORG_NAME="leeaplin"
-PROJECT_NAME="Kickstart pipeline"
-PERSONAL_ACCESS_TOKEN=$1
+# Azure DevOps Organization URL
+org_url="https://dev.azure.com/leeaplin"
 
-# Pipeline variables
-PIPELINE_NAME="build-and-plan"
+# Azure DevOps Personal Access Token (PAT)
+pat=$1
 
-# Azure Devops REST API url
-API_URL="https://dev.azure.com/${ORG_NAME}/${PROJECT_NAME}/_apis/pipelines?api-version=6.0"
+# Azure DevOps Project Name
+project_name="kickstart"
 
-# Get pipeline ID by name
-pipeline_id=$(curl -s -X GET -u ":${PERSONAL_ACCESS_TOKEN}" "$API_URL" | jq -r ".value[] | select(.name == \"$PIPELINE_NAME\") | .id")
+# Azure DevOps API Version
+api_version="6.1"
 
-if [ -z "$pipeline_id" ]; then
-    echo "Pipeline not found with the name '$PIPELINE_NAME'."
-    exit 1
+# REST API endpoint to list pipelines
+url="$org_url/$project_name/_apis/pipelines?api-version=$api_version"
+
+# Make the API request
+response=$(curl -s -H "Authorization: Basic $pat" "$url")
+
+# Check for errors in the response
+if [[ "$response" == *"error"* ]]; then
+  echo "Error: Unable to list pipelines. Please check your configuration."
+  exit 1
 fi
+
+# Parse and display the pipeline information
+pipelines=$(echo "$response" | jq -r '.value[] | "Pipeline ID: \(.id), Name: \(.name), Repository: \(.repository.name)"')
+
+echo "Azure DevOps Pipelines in Project '$project_name':"
+echo "$pipelines"

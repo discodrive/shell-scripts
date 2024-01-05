@@ -3,8 +3,9 @@ Output pipeline-check.gif
 Set FontSize 24
 Set Width 1200
 Set Height 600
+Set Shell powershell
 
-Type 'powershell.exe -File "pipeline-check.ps1"'
+Type "powershell.exe -File 'pipeline-check.ps1'"
 Sleep 4s
 Down@500ms 2
 Sleep 2s

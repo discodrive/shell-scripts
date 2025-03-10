@@ -1,5 +1,8 @@
 $backendPool = @{
-
+    'control-web-3' = '10.2.0.4';
+    'control-web-1' = '10.2.0.5';
+    'control-web-2' = '10.2.0.6';
+    'control-web-4' = '10.2.0.8';
 }
 
 foreach ($vm in $backendPool.GetEnumerator()) {

@@ -1,5 +1,5 @@
-$sourceVault=""
-$destinationVault=""
+$sourceVault="livebuzz-key-vault"
+$destinationVault="lb-onsite-key-vault"
 
 $secrets=(az keyvault secret list --vault-name $sourceVault --query "[].{id:id,name:name}") | ConvertFrom-Json | ForEach-Object { 
   $secretName = $_.name

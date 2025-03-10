@@ -1,6 +1,6 @@
 param (
     [string[]]$directories,
-    [string]$endpointUrl = "https://7a80e4b7053d01ea3a2ca9d4b8ec3a44.r2.cloudflarestorage.com"
+    [string]$endpointUrl = "****"
 )
 
 if (-not $directories) {
